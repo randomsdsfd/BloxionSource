@@ -100,9 +100,9 @@ const Login: NextPage = () => {
 
 	return (
 		<div className="flex bg-infobg-light dark:bg-infobg-dark h-screen bg-no-repeat bg-cover bg-center">
-			<p className="text-md -mt-1 text-white absolute top-4 left-4 xs:hidden md:text-6xl font-extrabold">
-				👋 Welcome <br /> to <span className="text-pink-100 "> Orbit </span>
-			</p>
+			<p className="text-3xl font-extrabold text-gray-900 dark:text-white mb-6">
+					👋 Welcome <br /> to <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">Bloxion</span>
+				</p>
 			<Slider activeSlide={selectedSlide}>
 				<div>
 					<p className="font-bold text-2xl dark:text-white">Let's get started</p>
@@ -166,10 +166,10 @@ const Login: NextPage = () => {
 				</div>
 				<div>
 					<p className="font-bold text-2xl dark:text-white" id="2">
-						Make your Orbit account
+						Make your Bloxion account
 					</p>
 					<p className="text-md -mt-1 text-gray-500 dark:text-gray-200">
-						You need to create an Orbit account to continue
+						You need to create an Bloxion account to continue
 					</p>
 					<FormProvider {...signupform}>
 						<form onSubmit={signupform.handleSubmit(createAccount)}>

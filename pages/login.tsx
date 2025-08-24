@@ -45,10 +45,10 @@ const Login: NextPage = () => {
 
     const style = getComputedStyle(document.documentElement);
     const colors = [
-      style.getPropertyValue("--gradient-color-1").trim() || "#00d0bc",
-      style.getPropertyValue("--gradient-color-2").trim() || "#005253",
-      style.getPropertyValue("--gradient-color-3").trim() || "#6529ff",
-      style.getPropertyValue("--gradient-color-4").trim() || "#822eff",
+        style.getPropertyValue("--gradient-color-1").trim() || "#00c6ff",  // light blue / cyan
+        style.getPropertyValue("--gradient-color-2").trim() || "#0072ff",  // medium blue
+        style.getPropertyValue("--gradient-color-3").trim() || "#0040ff",  // deeper blue
+        style.getPropertyValue("--gradient-color-4").trim() || "#001b99",  // navy/dark blue
     ];
 
     let width = window.innerWidth, height = window.innerHeight, angle = 0;
@@ -214,8 +214,10 @@ const Login: NextPage = () => {
 
           {mode === "login" && (
             <>
-              <p className="font-bold text-3xl text-gray-700 dark:text-white mb-2">👋 Welcome to Orbit</p>
-              <p className="text-md text-gray-600 dark:text-gray-300 mb-6">Login to your Orbit account to continue</p>
+<p className="text-3xl font-extrabold text-gray-900 dark:text-white mb-6">
+					👋 Welcome <br /> to <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">Bloxion</span>
+				</p>
+              <p className="text-md text-gray-600 dark:text-gray-300 mb-6">Login to your Bloxion account to continue</p>
 
               <FormProvider {...loginMethods}>
                 <form onSubmit={submitLogin(onSubmitLogin)} className="space-y-5 mb-6" noValidate>
@@ -262,7 +264,7 @@ const Login: NextPage = () => {
               {signupStep === 0 && (
                 <>
                   <p className="font-bold text-3xl text-gray-700 dark:text-white mb-2">🔨 Create an account</p>
-                  <p className="text-md text-gray-600 dark:text-gray-300 mb-6">Create a new account for Orbit</p>
+                  <p className="text-md text-gray-600 dark:text-gray-300 mb-6">Create a new account for Bloxion</p>
 
                   <FormProvider {...signupMethods}>
                     <form onSubmit={e => { e.preventDefault(); setSignupStep(1); }} className="space-y-5 mb-6" noValidate>
@@ -422,6 +424,15 @@ const Login: NextPage = () => {
                   Copyright © 2022 Tovy. All rights reserved.
                 </p>
               </div>
+<div>
+                <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-1">
+                  Bloxion modifications and enhancements:
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Copyright © 2025 Bloxion. All rights reserved.
+                </p>
+              </div>
+
             </div>
           </Dialog.Panel>
         </div>
