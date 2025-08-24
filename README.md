@@ -1,14 +1,8 @@
->[!IMPORTANT]
->**Work-in-progress** - Planetary is currently in the process of updating this read me and creating our documentation for Orbit. We recommend you host for free with Planetary Cloud, however you can still self-host by following our <a href="https://docs.planetaryapp.cloud">Documentation</a>. Expect bugs in this beta. We've tried our best to iron out everything we could find in Tovy, but we expect there to be issues. Let us know by creating an issue, or if you're adventurous... patch it yourself and send in a PR.
 
->[!TIP]
-> The best and easiest way to get started with Orbit is our cloud hosting solution, Planetary Cloud. It's easy, secure, and supafast. See https://planetaryapp.cloud to get started. The best part? It's **FREE**!
 <div>
   <div align="left">
-    <img height="40px" src=".github/logo.png"></img>
-    <h1>Orbit by Team Planetary</h1>
+    <h1>Bloxion</h1>
   </div>
-    <img src="https://img.shields.io/badge/version-v2.0.9_beta7-purple"></img>
   <ul>
     <li><a href="#about">About</a></li>
     <li><a href="#why-consider">Why consider</a></li>
@@ -18,7 +12,7 @@
 
   <h2>About</h2>
   <p>
-    Orbit is a modern, improved, and maintained fork of the open source staff management platform, Tovy. It allows Roblox groups to manage their group members in a more intuitive and powerful way, while still being simple to use. Planetary aims to continue the original Tovy mission and maintain, improve, and introduce new features to Orbit. So far, we've fixed critical bugs that essentially bricked Tovy, improved the UI, and introduced image support to the wall. We also created our own custom runtime and cloud hosting service to bring Orbit to the masses for free, in just a few clicks.
+    Bloxion is an improved fork of the open source staff management platform, Orbit. It allows Roblox groups to manage their group members in a more intuitive and powerful way, while still being simple to use. We have improved the UI. 
   </p>
   <h2>Why consider</h2>
   <ul>
@@ -38,16 +32,13 @@
           Track your members' group activity
         </li>
         <li>
-          Automate things with Orbit (soon)
-        </li>
-        <li>
           Warn, promote, demote, and way more to your members
         </li>
         <li>
-          Communicate with your members directly in Orbit
+          Communicate with your members directly in Bloxion
         </li>
         <li>
-          Host your docs with Orbit
+          Host your docs with Bloxion
         </li>
         <li>
           Assign your staff activity requirements
@@ -71,18 +62,12 @@
   <h2>Quicklinks</h2>
   <ul>
     <li>
-      Don't know how to install? –– <a href="https://docs.planetaryapp.cloud">Visit our documentation!</a>
-    </li>
-    <li>
-      🐛 Bugs? –– <a href="https://discord.gg/planetorbit">Get support and let us know here!</a>
-    </li>
-    <li>
-      ✨ Suggestions? –– <a href="https://feedback.planetaryapp.cloud/">View our Upcoming Features and Suggest your own!</a>
+      Don't know how to install? –– <a href="https://docs.planetaryapp.cloud">Visit the documentation of the original service (isn't changed)!</a>
     </li>
   </ul>
 
   <h2>🚀 One-Click Deploy</h2>
-  <p>The fastest way to get started with Orbit is by deploying it to <strong>Vercel</strong> in just one click:</p>
+  <p>The fastest way to get started with Bloxion is by deploying it to <strong>Vercel</strong> in just one click:</p>
   <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FPlanetaryOrbit%2Forbit&env=SESSION_SECRET,DATABASE_URL&build-command=prisma%20db%20push%20%26%26%20next%20build">
     <img src="https://vercel.com/button" alt="Deploy with Vercel" />
   </a>
