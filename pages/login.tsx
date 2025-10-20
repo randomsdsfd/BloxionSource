@@ -12,12 +12,14 @@ import { useTheme } from "next-themes";
 import ThemeToggle from "@/components/ThemeToggle";
 import { Dialog } from "@headlessui/react";
 import { IconX } from "@tabler/icons-react";
+import { OAuthAvailable } from "@/hooks/useOAuth";
 
 type LoginForm = { username: string; password: string };
 type SignupForm = { username: string; password: string; verifypassword: string };
 
 const Login: NextPage = () => {
   const [login, setLogin] = useRecoilState(loginState);
+  const { isAvailable: isOAuth } = OAuthAvailable();
 
   const loginMethods = useForm<LoginForm>();
   const signupMethods = useForm<SignupForm>();
@@ -186,7 +188,7 @@ const Login: NextPage = () => {
   return (
     <>
       <div className="flex items-center justify-center h-screen px-4 overflow-hidden bg-infobg-light dark:bg-infobg-dark">
-        <div className="bg-white dark:bg-gray-700 dark:bg-opacity-50 dark:backdrop-blur-lg max-w-md w-full rounded-3xl p-8 shadow-lg relative">
+        <div className="bg-white dark:bg-zinc-700 dark:bg-opacity-50 dark:backdrop-blur-lg max-w-md w-full rounded-3xl p-8 shadow-lg relative">
           <div className="absolute top-4 right-4">
             <ThemeToggle />
           </div>
@@ -202,7 +204,7 @@ const Login: NextPage = () => {
                 <button
                   key={m}
                   onClick={() => setMode(m as any)}
-                  className={`pb-2 font-semibold text-lg ${isActive ? activeClass : "text-gray-500"}`}
+                  className={`pb-2 font-semibold text-lg ${isActive ? activeClass : "text-zinc-500"}`}
                   type="button"
                   disabled={loading}
                 >
@@ -214,8 +216,8 @@ const Login: NextPage = () => {
 
           {mode === "login" && (
             <>
-              <p className="font-bold text-3xl text-gray-700 dark:text-white mb-2">👋 Welcome to Orbit</p>
-              <p className="text-md text-gray-600 dark:text-gray-300 mb-6">Login to your Orbit account to continue</p>
+              <p className="font-bold text-3xl text-zinc-700 dark:text-white mb-2">👋 Welcome to Orbit</p>
+              <p className="text-md text-zinc-600 dark:text-zinc-300 mb-6">Login to your Orbit account to continue</p>
 
               <FormProvider {...loginMethods}>
                 <form onSubmit={submitLogin(onSubmitLogin)} className="space-y-5 mb-6" noValidate>
@@ -235,22 +237,51 @@ const Login: NextPage = () => {
                       onChange={() => setShowPassword(v => !v)}
                       className="mr-2 rounded-md border-gray-300 focus:ring-primary focus:border-primary transition"
                     />
-                    <label htmlFor="show-password" className="text-sm text-gray-600 dark:text-gray-300 select-none">
+                    <label htmlFor="show-password" className="text-sm text-zinc-600 dark:text-zinc-300 select-none">
                       Show password
                     </label>
                   </div>
-                  <div className="flex justify-between items-center mt-2">
-                    <Link href="/forgot-password" className="text-sm text-blue-600 hover:underline">
-                      Forgot password?
-                    </Link>
-                    <Button
-                      type="submit"
-                      classoverride="px-6 py-2 text-sm rounded-lg"
-                      loading={loading}
-                      disabled={loading}
-                    >
-                      Login
-                    </Button>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <Link href="/forgot-password" className="text-sm text-blue-600 hover:underline">
+                        Forgot password?
+                      </Link>
+                      <Button
+                        type="submit"
+                        classoverride="px-6 py-2 text-sm rounded-lg"
+                        loading={loading}
+                        disabled={loading}
+                      >
+                        Login
+                      </Button>
+                    </div>
+                    
+                    {isOAuth && (
+                      <>
+                        <div className="text-center">
+                          <div className="relative">
+                            <div className="absolute inset-0 flex items-center">
+                              <span className="w-full border-t border-zinc-300 dark:border-zinc-600" />
+                            </div>
+                            <div className="relative flex justify-center text-xs uppercase">
+                              <span className="bg-white dark:bg-zinc-700 px-2 text-zinc-500 dark:text-zinc-400">Or</span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="w-full">
+                          <button
+                            type="button"
+                            onClick={() => window.location.href = '/api/auth/roblox/start'}
+                            disabled={loading}
+                            className="w-full flex items-center justify-center px-4 py-2 border border-zinc-300 dark:border-zinc-600 rounded-lg shadow-sm bg-white dark:bg-zinc-800 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                          >
+                            <img src="/roblox.svg" alt="Roblox" className="w-5 h-5 mr-2" />
+                            Continue with Roblox
+                          </button>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </form>
               </FormProvider>
@@ -261,8 +292,8 @@ const Login: NextPage = () => {
             <>
               {signupStep === 0 && (
                 <>
-                  <p className="font-bold text-3xl text-gray-700 dark:text-white mb-2">🔨 Create an account</p>
-                  <p className="text-md text-gray-600 dark:text-gray-300 mb-6">Create a new account for Orbit</p>
+                  <p className="font-bold text-3xl text-zinc-700 dark:text-white mb-2">🔨 Create an account</p>
+                  <p className="text-md text-zinc-600 dark:text-zinc-300 mb-6">Create a new account for Orbit</p>
 
                   <FormProvider {...signupMethods}>
                     <form onSubmit={e => { e.preventDefault(); setSignupStep(1); }} className="space-y-5 mb-6" noValidate>
@@ -277,13 +308,40 @@ const Login: NextPage = () => {
                       </div>
                     </form>
                   </FormProvider>
+                  
+                  {isOAuth && (
+                    <>
+                      <div className="mt-4">
+                        <div className="relative">
+                          <div className="absolute inset-0 flex items-center">
+                            <span className="w-full border-t border-zinc-300 dark:border-zinc-600" />
+                          </div>
+                          <div className="relative flex justify-center text-xs uppercase">
+                            <span className="bg-white dark:bg-zinc-700 px-2 text-zinc-500 dark:text-zinc-400">Or</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="mt-4">
+                        <button
+                          type="button"
+                          onClick={() => window.location.href = '/api/auth/roblox/start'}
+                          disabled={loading}
+                          className="w-full flex items-center justify-center px-4 py-2 border border-zinc-300 dark:border-zinc-600 rounded-lg shadow-sm bg-white dark:bg-zinc-800 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        >
+                          <img src="/roblox.svg" alt="Roblox" className="w-5 h-5 mr-2" />
+                          Sign up with Roblox
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </>
               )}
 
               {signupStep === 1 && (
                 <>
-                  <p className="font-bold text-3xl text-gray-700 dark:text-white mb-2">🔒 Set a password</p>
-                  <p className="text-md text-gray-600 dark:text-gray-300 mb-6">Choose a password for your new account</p>
+                  <p className="font-bold text-3xl text-zinc-700 dark:text-white mb-2">🔒 Set a password</p>
+                  <p className="text-md text-zinc-600 dark:text-zinc-300 mb-6">Choose a password for your new account</p>
 
                   <FormProvider {...signupMethods}>
                     <form onSubmit={submitSignup(onSubmitSignup)} className="space-y-5 mb-6" noValidate>
@@ -332,7 +390,35 @@ const Login: NextPage = () => {
                           Continue
                         </Button>
                       </div>
-                      <div className="mt-4 text-xs text-gray-500 dark:text-gray-400 text-center">
+                      
+                      {isOAuth && (
+                        <>
+                          <div className="mt-4">
+                            <div className="relative">
+                              <div className="absolute inset-0 flex items-center">
+                                <span className="w-full border-t border-zinc-300 dark:border-zinc-600" />
+                              </div>
+                              <div className="relative flex justify-center text-xs uppercase">
+                                <span className="bg-white dark:bg-zinc-700 px-2 text-zinc-500 dark:text-zinc-400">Or</span>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="mt-4">
+                            <button
+                              type="button"
+                              onClick={() => window.location.href = '/api/auth/roblox/start'}
+                              disabled={loading}
+                              className="w-full flex items-center justify-center px-4 py-2 border border-zinc-300 dark:border-zinc-600 rounded-lg shadow-sm bg-white dark:bg-zinc-800 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                            >
+                              <img src="/roblox.svg" alt="Roblox" className="w-5 h-5 mr-2" />
+                              Sign up with Roblox
+                            </button>
+                          </div>
+                        </>
+                      )}
+                      
+                      <div className="mt-4 text-xs text-zinc-500 dark:text-zinc-400 text-center">
                         <strong>Don't share your password.</strong><br />
                         <span>Do not use the same password as your Roblox account.</span>
                       </div>
@@ -344,8 +430,8 @@ const Login: NextPage = () => {
               {signupStep === 2 && (
                 <>
                   <p className="font-bold text-3xl dark:text-white mb-2">Verify your account</p>
-                  <p className="text-md text-gray-600 dark:text-gray-300 mb-6">Paste this code into your Roblox profile bio:</p>
-                  <p className="text-center font-mono bg-gray-700 text-white py-3 rounded mb-4 select-all">{verificationCode}</p>
+                  <p className="text-md text-zinc-600 dark:text-zinc-300 mb-6">Paste this code into your Roblox profile bio:</p>
+                  <p className="text-center font-mono bg-zinc-700 text-white py-3 rounded mb-4 select-all">{verificationCode}</p>
                   {verificationError && <p className="text-center text-red-500 mb-4 font-semibold">Verification not found. Please try again.</p>}
                   <div className="flex gap-2">
                     <Button
@@ -374,7 +460,7 @@ const Login: NextPage = () => {
         <div className="fixed bottom-4 left-4 z-40">
           <button
             onClick={() => setShowCopyright(true)}
-            className="text-left text-xs text-gray-500 hover:text-primary"
+            className="text-left text-xs text-zinc-500 hover:text-primary"
             type="button"
           >
             © Copyright Notices
@@ -391,34 +477,34 @@ const Login: NextPage = () => {
         <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
 
         <div className="fixed inset-0 flex items-center justify-center p-4">
-          <Dialog.Panel className="mx-auto max-w-sm rounded-lg bg-white dark:bg-gray-800 p-6 shadow-xl">
+          <Dialog.Panel className="mx-auto max-w-sm rounded-lg bg-white dark:bg-zinc-800 p-6 shadow-xl">
             <div className="flex items-center justify-between mb-4">
-              <Dialog.Title className="text-lg font-medium text-gray-900 dark:text-white">
+              <Dialog.Title className="text-lg font-medium text-zinc-900 dark:text-white">
                 Copyright Notices
               </Dialog.Title>
               <button
                 onClick={() => setShowCopyright(false)}
-                className="p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="p-1 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700"
               >
-                <IconX className="w-5 h-5 text-gray-500" />
+                <IconX className="w-5 h-5 text-zinc-500" />
               </button>
             </div>
 
             <div className="space-y-4">
               <div>
-                <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-1">
+                <h3 className="text-sm font-medium text-zinc-900 dark:text-white mb-1">
                   Orbit features, enhancements, and modifications:
                 </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-zinc-500 dark:text-zinc-400">
                   Copyright © 2025 Planetary. All rights reserved.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-1">
+                <h3 className="text-sm font-medium text-zinc-900 dark:text-white mb-1">
                   Original Tovy features and code:
                 </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-zinc-500 dark:text-zinc-400">
                   Copyright © 2022 Tovy. All rights reserved.
                 </p>
               </div>
